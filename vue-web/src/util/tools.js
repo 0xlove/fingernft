@@ -63,7 +63,16 @@ const AUCTION_STATUS_CODE = {
 };
 
 let messageBoxStatus = true;
-
+const promisify = (inner) =>
+  new Promise((resolve, reject) =>
+    inner((err, res) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(res);
+      }
+    })
+  );
 export default {
   getNotifyType(type) {
     return NOTIFY_TYPE[type];
